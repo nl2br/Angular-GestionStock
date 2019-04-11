@@ -1,0 +1,35 @@
+<h3>Stock des produits</h3>
+<div *ngIf="!isFormVisible">
+  <form (ngSubmit)="formSubmit()" [formGroup]="produitForm">
+      <label for="name">Nom: </label>
+      <input formControlName="name">
+      <label for="description">Description: </label>
+      <input formControlName="description">
+      <label for="fournisseur">fournisseur: </label>
+      <input formControlName="fournisseur">
+      <label for="age">Age: </label>
+      <input formControlName="age">
+      <button type="submit" [disabled]="produitForm.invalid">ADD</button>
+  </form>
+</div>
+<button (click)="!isFormVisible">Ajouter un produit</button>
+
+
+<div *ngFor="let produit of produits; even as isEven">
+  <div [style.backgroundColor]="isEven ? 'lightgrey' : 'white'">
+    <p>{{produit.nom | uppercase}}</p>
+    <button (click)="removeProduit(produit)">Supprimer le produit</button><br>
+    <span>{{produit.description | lowercase}}</span><br>
+    <span>{{produit.prix | currency:'EUR':number:'.2'}}</span><br>
+    <strong>Ingrédients: </strong><br>
+    <div *ngFor="let ingredient of produit.ingredients">
+      <span>{{ingredient.nom}}</span>
+    </div>
+    <strong>Détails: </strong><br>
+    <span>{{produit.fournisseur}}</span><br>
+    <span>{{produit.emailFournisseur}}</span><br>
+    <span>{{produit.conditionConservation}}</span><br>
+    <span>{{produit.age}}</span>
+  </div>
+</div>
+
